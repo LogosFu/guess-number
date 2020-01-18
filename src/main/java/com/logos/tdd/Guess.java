@@ -17,15 +17,19 @@ public class Guess {
     this.compare = compare;
   }
 
-  public String tryGuessEqual(List<Integer> tryGuess) {
-    final long count = getNumberEqualCount(tryGuess);
-    return count + "A";
-  }
 
-  public String tryGuessNumberIn(List<Integer> tryGuess) {
+  public String tryGuess(List<Integer> tryGuess) {
+    if (isListRepeat(tryGuess)) {
+      throw new InputErrorException();
+    }
+    final long equalCount = getNumberEqualCount(tryGuess);
     final long numberIn = tryGuess.stream().filter(guess -> compare.isNumberIn(guess, answers))
         .count();
-    return (numberIn - getNumberEqualCount(tryGuess)) + "B";
+    return equalCount + "A" + (numberIn - equalCount) + "B";
+  }
+
+  private boolean isListRepeat(List<Integer> tryGuess) {
+    return tryGuess.size() > tryGuess.stream().distinct().count();
   }
 
   private long getNumberEqualCount(List<Integer> tryGuess) {

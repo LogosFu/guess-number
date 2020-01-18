@@ -1,6 +1,7 @@
 package com.logos.tdd;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,27 +35,23 @@ class GuessTest {
     when(compare.compareTwo(chart2, answer2)).thenReturn(true);
     when(compare.compareTwo(chart3, answer3)).thenReturn(false);
     when(compare.compareTwo(chart4, answer4)).thenReturn(false);
-
-    Guess guess = new Guess(compare);
-    guess.setAnswers(answers);
-    assertThat(guess.tryGuessEqual(tryGuess)).isEqualTo("2A");
-  }
-
-  @Test
-  void should_return_1B_when_guess_given_four_digits_number_has_one_equal_and_not_in_same_index() {
-
-    when(compare.compareTwo(chart1, answer1)).thenReturn(true);
-    when(compare.compareTwo(chart2, answer2)).thenReturn(true);
-    when(compare.compareTwo(chart3, answer3)).thenReturn(false);
-    when(compare.compareTwo(chart4, answer4)).thenReturn(false);
     when(compare.isNumberIn(chart1, answers)).thenReturn(true);
     when(compare.isNumberIn(chart2, answers)).thenReturn(true);
     when(compare.isNumberIn(chart3, answers)).thenReturn(true);
     when(compare.isNumberIn(chart4, answers)).thenReturn(false);
 
-
     Guess guess = new Guess(compare);
     guess.setAnswers(answers);
-    assertThat(guess.tryGuessNumberIn(tryGuess)).isEqualTo("1B");
+    assertThat(guess.tryGuess(tryGuess)).isEqualTo("2A1B");
+  }
+
+  @Test
+  void should_throw_wrong_input_error_when_guess_given_repeat_number() {
+    Guess guess = new Guess(compare);
+    guess.setAnswers(answers);
+     final List<Integer> tryRepeatGuess = Arrays.asList(chart1, chart1, chart3, chart4);
+
+    Throwable throwable = catchThrowable(()-> guess.tryGuess(tryRepeatGuess));
+    assertThat(throwable).isInstanceOf(InputErrorException.class);
   }
 }
