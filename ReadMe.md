@@ -22,5 +22,6 @@ Input	Output	Instruction
 4. ShouldReturn2A2BWhenGuessGivenFourDigitsNumberHasTwoEqualAndInSameIndexAndHasTwoEqualAndNotInSameIndex
 5. ShouldThrowWrongInputErrorWhenGuessGivenRepeatNumber
 6. ShouldThrowWrongInputErrorWhenGuessGivenNotFourDigitsNumber
-7. shouldEndWhenGuessOverSixGivenError
+7. shouldEndWhenGuessGiven4AResult
+8. shouldEndWhenGuessOverSixGivenError
  

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class Guess {
+public class GameCore {
 
   @Getter
   @Setter
@@ -13,13 +13,13 @@ public class Guess {
 
   private NumberCompare compare;
 
-  public Guess(NumberCompare compare) {
+  public GameCore(NumberCompare compare) {
     this.compare = compare;
   }
 
 
   public String tryGuess(List<Integer> tryGuess) {
-    if (isListRepeat(tryGuess)) {
+    if (isListRepeat(tryGuess) || tryGuess.size() != 4) {
       throw new InputErrorException();
     }
     final long equalCount = getNumberEqualCount(tryGuess);
