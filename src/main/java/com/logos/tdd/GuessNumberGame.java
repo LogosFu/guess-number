@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class GameCore {
+public class GuessNumberGame {
 
   @Getter
   @Setter
@@ -13,7 +13,7 @@ public class GameCore {
 
   private NumberCompare compare;
 
-  public GameCore(NumberCompare compare) {
+  public GuessNumberGame(NumberCompare compare) {
     this.compare = compare;
   }
 

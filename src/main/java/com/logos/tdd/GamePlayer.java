@@ -7,32 +7,32 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class Game {
+public class GamePlayer {
 
-  private GameCore gameCore;
+  private GuessNumberGame guessNumberGame;
 
-  public Game(GameCore gameCore) {
-    this.gameCore = gameCore;
+  public GamePlayer(GuessNumberGame guessNumberGame) {
+    this.guessNumberGame = guessNumberGame;
   }
 
   public String play(int... numbers) {
     final List<Integer> guess = stream(numbers).boxed().collect(Collectors.toList());
-    return gameCore.tryGuess(guess);
+    return guessNumberGame.tryGuess(guess);
   }
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     String nextLine = scanner.nextLine();
     int sum = 0;
-    GameCore gameCore = new GameCore(new NumberCompare());
-    gameCore.setAnswers(getRandomNumbers());
-    Game game = new Game(gameCore);
+    GuessNumberGame guessNumberGame = new GuessNumberGame(new NumberCompare());
+    guessNumberGame.setAnswers(getRandomNumbers());
+    GamePlayer gamePlayer = new GamePlayer(guessNumberGame);
 
     while (nextLine != null && !nextLine.equals("")) {
       sum += 1;
       nextLine = scanner.nextLine();
       try {
-        final String result = game
+        final String result = gamePlayer
             .play(stream(nextLine.split("")).mapToInt(Integer::valueOf).toArray());
         System.out.println(result);
       }catch (InputErrorException e){

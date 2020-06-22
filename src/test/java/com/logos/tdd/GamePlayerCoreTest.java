@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class GameCoreTest {
+class GamePlayerCoreTest {
 
   private NumberCompare compare;
   private int chart1 = 1;
@@ -40,28 +40,28 @@ class GameCoreTest {
     when(compare.isNumberIn(chart3, answers)).thenReturn(true);
     when(compare.isNumberIn(chart4, answers)).thenReturn(false);
 
-    GameCore gameCore = new GameCore(compare);
-    gameCore.setAnswers(answers);
-    assertThat(gameCore.tryGuess(tryGuess)).isEqualTo("2A1B");
+    GuessNumberGame guessNumberGame = new GuessNumberGame(compare);
+    guessNumberGame.setAnswers(answers);
+    assertThat(guessNumberGame.tryGuess(tryGuess)).isEqualTo("2A1B");
   }
 
   @Test
   void should_throw_wrong_input_error_when_guess_given_repeat_number() {
-    GameCore gameCore = new GameCore(compare);
-    gameCore.setAnswers(answers);
+    GuessNumberGame guessNumberGame = new GuessNumberGame(compare);
+    guessNumberGame.setAnswers(answers);
      final List<Integer> tryRepeatGuess = Arrays.asList(chart1, chart1, chart3, chart4);
 
-    Throwable throwable = catchThrowable(()-> gameCore.tryGuess(tryRepeatGuess));
+    Throwable throwable = catchThrowable(()-> guessNumberGame.tryGuess(tryRepeatGuess));
     assertThat(throwable).isInstanceOf(InputErrorException.class);
   }
 
   @Test
   void should_throw_wrong_input_error_when_guess_given_not_four_digits_number() {
-    GameCore gameCore = new GameCore(compare);
-    gameCore.setAnswers(answers);
+    GuessNumberGame guessNumberGame = new GuessNumberGame(compare);
+    guessNumberGame.setAnswers(answers);
     final List<Integer> tryRepeatGuess = Arrays.asList(chart1, chart3, chart4);
 
-    Throwable throwable = catchThrowable(()-> gameCore.tryGuess(tryRepeatGuess));
+    Throwable throwable = catchThrowable(()-> guessNumberGame.tryGuess(tryRepeatGuess));
     assertThat(throwable).isInstanceOf(InputErrorException.class);
   }
 
