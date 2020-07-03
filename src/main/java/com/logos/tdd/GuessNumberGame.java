@@ -1,6 +1,9 @@
 package com.logos.tdd;
 
+import static java.util.Arrays.stream;
+
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,5 +39,10 @@ public class GuessNumberGame {
     return tryGuess.stream()
         .flatMap(guess -> answers.stream().filter(answer -> compare.compareTwo(guess, answer)))
         .count();
+  }
+
+  public String play(int... numbers) {
+    final List<Integer> guess = stream(numbers).boxed().collect(Collectors.toList());
+    return tryGuess(guess);
   }
 }

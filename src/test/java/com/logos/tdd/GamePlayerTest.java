@@ -20,8 +20,8 @@ class GamePlayerTest {
   @Test
   void should_end_when_guess_given4_a_result() {
     when(guessNumberGame.tryGuess(Arrays.asList(1, 4, 6, 8))).thenReturn("4A");
-    final GamePlayer gamePlayer = new GamePlayer(guessNumberGame);
-    final String result = gamePlayer.play(1, 4, 6, 8);
+    final GamePlayer gamePlayer = new GamePlayer();
+    final String result = gamePlayer.guessNumberGame.play(1, 4, 6, 8);
     assertThat(result).isEqualTo("4A");
   }
 
